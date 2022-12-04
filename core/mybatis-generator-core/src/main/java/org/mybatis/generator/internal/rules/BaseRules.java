@@ -374,7 +374,7 @@ public abstract class BaseRules implements Rules {
         if (isModelOnly) {
             return false;
         }
-
+// TODO: 2022/12/5  table  rule method 设置配置
         return tableConfiguration.isUpdateByExampleStatementEnabled();
     }
 

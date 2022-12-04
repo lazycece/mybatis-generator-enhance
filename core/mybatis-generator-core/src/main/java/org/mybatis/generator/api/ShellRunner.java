@@ -138,12 +138,12 @@ public class ShellRunner {
         }
 
         for (String warning : warnings) {
-            writeLine(warning);
+            writeLine(warning); // TODO: 2022/12/5 warn println
         }
 
         if (warnings.isEmpty()) {
             writeLine(getString("Progress.4")); //$NON-NLS-1$
-        } else {
+        } else { // TODO: 2022/12/5  message
             writeLine();
             writeLine(getString("Progress.5")); //$NON-NLS-1$
         }

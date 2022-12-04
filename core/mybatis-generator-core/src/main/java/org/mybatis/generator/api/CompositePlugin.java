@@ -68,7 +68,7 @@ public abstract class CompositePlugin implements Plugin {
 
     @Override
     public void initialized(IntrospectedTable introspectedTable) {
-        for (Plugin plugin : plugins) {
+        for (Plugin plugin : plugins) { // TODO: 2022/12/5  plugins initial
             plugin.initialized(introspectedTable);
         }
     }

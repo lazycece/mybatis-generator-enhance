@@ -145,7 +145,7 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
             AbstractJavaGenerator javaGenerator = new BaseRecordGenerator(getModelProject());
             initializeAbstractGenerator(javaGenerator, warnings, progressCallback);
             javaGenerators.add(javaGenerator);
-        }
+        } // TODO: 2022/12/5 不同的model的生成规则情况
 
         if (getRules().generateRecordWithBLOBsClass()) {
             AbstractJavaGenerator javaGenerator = new RecordWithBLOBsGenerator(getModelProject());
@@ -167,10 +167,10 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
     }
 
     @Override
-    public List<GeneratedJavaFile> getGeneratedJavaFiles() {
+    public List<GeneratedJavaFile> getGeneratedJavaFiles() { // TODO: 2022/12/5 generate java file
         List<GeneratedJavaFile> answer = new ArrayList<>();
-
-        for (AbstractJavaGenerator javaGenerator : javaGenerators) {
+// TODO: 2022/12/5  javaGenerator-User.java javaGenerator-UserMapper.java
+        for (AbstractJavaGenerator javaGenerator : javaGenerators) {// TODO: 2022/12/5  getCompilationUnits java 类
             List<CompilationUnit> compilationUnits = javaGenerator.getCompilationUnits();
             for (CompilationUnit compilationUnit : compilationUnits) {
                 GeneratedJavaFile gjf = new GeneratedJavaFile(compilationUnit,
@@ -223,14 +223,14 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
 
     @Override
     public List<GeneratedXmlFile> getGeneratedXmlFiles() {
-        List<GeneratedXmlFile> answer = new ArrayList<>();
+        List<GeneratedXmlFile> answer = new ArrayList<>(); // TODO: 2022/12/5 mapper xml generator
 
-        if (xmlMapperGenerator != null) {
+        if (xmlMapperGenerator != null) { // TODO: 2022/12/5 gxf=UserMapper.xml
             Document document = xmlMapperGenerator.getDocument();
             GeneratedXmlFile gxf = new GeneratedXmlFile(document,
                     getMyBatis3XmlMapperFileName(), getMyBatis3XmlMapperPackage(),
                     context.getSqlMapGeneratorConfiguration().getTargetProject(),
-                    true, context.getXmlFormatter());
+                    true, context.getXmlFormatter()); // todo sqlMapGenerated ??? 默认true
             if (context.getPlugins().sqlMapGenerated(gxf, this)) {
                 answer.add(gxf);
             }

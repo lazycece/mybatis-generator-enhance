@@ -230,7 +230,7 @@ public class MyBatisGenerator {
         // calculate the contexts to run
         List<Context> contextsToRun;
         if (contextIds == null || contextIds.isEmpty()) {
-            contextsToRun = configuration.getContexts();
+            contextsToRun = configuration.getContexts(); // TODO: 2022/12/5  configuration context
         } else {
             contextsToRun = new ArrayList<>();
             for (Context context : configuration.getContexts()) {
@@ -266,6 +266,8 @@ public class MyBatisGenerator {
         callback.generationStarted(totalSteps);
 
         for (Context context : contextsToRun) {
+            // TODO: 2022/12/5  lazycece
+
             context.generateFiles(callback, generatedJavaFiles,
                     generatedXmlFiles, generatedKotlinFiles, otherGeneratedFiles, warnings);
         }
@@ -273,16 +275,16 @@ public class MyBatisGenerator {
         // now save the files
         if (writeFiles) {
             callback.saveStarted(generatedXmlFiles.size()
-                    + generatedJavaFiles.size());
+                    + generatedJavaFiles.size()); // TODO: 2022/12/5 call save started
 
             for (GeneratedXmlFile gxf : generatedXmlFiles) {
                 projects.add(gxf.getTargetProject());
-                writeGeneratedXmlFile(gxf, callback);
+                writeGeneratedXmlFile(gxf, callback); // TODO: 2022/12/5 write xml
             }
 
             for (GeneratedJavaFile gjf : generatedJavaFiles) {
                 projects.add(gjf.getTargetProject());
-                writeGeneratedJavaFile(gjf, callback);
+                writeGeneratedJavaFile(gjf, callback); // TODO: 2022/12/5 java xml
             }
 
             for (GeneratedKotlinFile gkf : generatedKotlinFiles) {
@@ -296,11 +298,11 @@ public class MyBatisGenerator {
             }
 
             for (String project : projects) {
-                shellCallback.refreshProject(project);
+                shellCallback.refreshProject(project);// TODO: 2022/12/5 refreshProject ???
             }
         }
 
-        callback.done();
+        callback.done();// TODO: 2022/12/5 call back 是做什么的 ？？？
     }
 
     private void writeGeneratedJavaFile(GeneratedJavaFile gjf, ProgressCallback callback)
@@ -312,13 +314,13 @@ public class MyBatisGenerator {
                     .getTargetProject(), gjf.getTargetPackage());
             targetFile = new File(directory, gjf.getFileName());
             if (targetFile.exists()) {
-                if (shellCallback.isMergeSupported()) {
+                if (shellCallback.isMergeSupported()) { // TODO: 2022/12/5  merge
                     source = shellCallback.mergeJavaFile(gjf
                             .getFormattedContent(), targetFile,
                             MergeConstants.getOldElementTags(),
                             gjf.getFileEncoding());
-                } else if (shellCallback.isOverwriteEnabled()) {
-                    source = gjf.getFormattedContent();
+                } else if (shellCallback.isOverwriteEnabled()) { // TODO: 2022/12/5  overwrite
+                    source = gjf.getFormattedContent();// TODO: 2022/12/5  generate code
                     warnings.add(getString("Warning.11", //$NON-NLS-1$
                             targetFile.getAbsolutePath()));
                 } else {
@@ -382,15 +384,15 @@ public class MyBatisGenerator {
             File directory = shellCallback.getDirectory(gxf
                     .getTargetProject(), gxf.getTargetPackage());
             targetFile = new File(directory, gxf.getFileName());
-            if (targetFile.exists()) {
-                if (gxf.isMergeable()) {
+            if (targetFile.exists()) { // TODO: 2022/12/5 文件存在的处理
+                if (gxf.isMergeable()) { // todo xml merge？，这里可以进行覆盖处理 更改mergeable
                     source = XmlFileMergerJaxp.getMergedSource(gxf,
                             targetFile);
                 } else if (shellCallback.isOverwriteEnabled()) {
                     source = gxf.getFormattedContent();
                     warnings.add(getString("Warning.11", //$NON-NLS-1$
                             targetFile.getAbsolutePath()));
-                } else {
+                } else { // todo what means
                     source = gxf.getFormattedContent();
                     targetFile = getUniqueFileName(directory, gxf
                             .getFileName());
@@ -398,7 +400,7 @@ public class MyBatisGenerator {
                             "Warning.2", targetFile.getAbsolutePath())); //$NON-NLS-1$
                 }
             } else {
-                source = gxf.getFormattedContent();
+                source = gxf.getFormattedContent(); // TODO: 2022/12/5 生成xml content
             }
 
             callback.checkCancel();

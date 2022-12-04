@@ -453,19 +453,20 @@ public class Context extends PropertyHolder {
         // items in the configuration.
         for (IntrospectedTable introspectedTable : introspectedTables) {
             callback.checkCancel();
-            introspectedTable.initialize();
+            introspectedTable.initialize();// TODO: 2022/12/5  table 相关的初始化
             introspectedTable.calculateGenerators(warnings, callback);
         }
 
         for (IntrospectedTable introspectedTable : introspectedTables) {
             callback.checkCancel();
+            // TODO: 2022/12/5  lazycece
             generatedJavaFiles.addAll(introspectedTable
                     .getGeneratedJavaFiles());
             generatedXmlFiles.addAll(introspectedTable
                     .getGeneratedXmlFiles());
             generatedKotlinFiles.addAll(introspectedTable
                     .getGeneratedKotlinFiles());
-
+// TODO: 2022/12/5  pluginAggregator to add javaFiles ,xmlFiles ??? 这个是做什么的
             generatedJavaFiles.addAll(pluginAggregator
                     .contextGenerateAdditionalJavaFiles(introspectedTable));
             generatedXmlFiles.addAll(pluginAggregator
@@ -475,7 +476,7 @@ public class Context extends PropertyHolder {
             otherGeneratedFiles.addAll(pluginAggregator
                     .contextGenerateAdditionalFiles(introspectedTable));
         }
-
+// TODO: 2022/12/5  pluginAggregator to add javaFiles ,xmlFiles ??? 这个是做什么的
         generatedJavaFiles.addAll(pluginAggregator
                 .contextGenerateAdditionalJavaFiles());
         generatedXmlFiles.addAll(pluginAggregator

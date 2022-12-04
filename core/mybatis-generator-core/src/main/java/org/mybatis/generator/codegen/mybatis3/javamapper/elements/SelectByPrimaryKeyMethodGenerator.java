@@ -32,7 +32,7 @@ public class SelectByPrimaryKeyMethodGenerator extends AbstractJavaMapperMethodG
         this.isSimple = isSimple;
     }
 
-    @Override
+    @Override // TODO: 2022/12/5 element 生成，这里可自定义方法名
     public void addInterfaceElements(Interface interfaze) {
         Method method = new Method(introspectedTable.getSelectByPrimaryKeyStatementId());
         method.setVisibility(JavaVisibility.PUBLIC);

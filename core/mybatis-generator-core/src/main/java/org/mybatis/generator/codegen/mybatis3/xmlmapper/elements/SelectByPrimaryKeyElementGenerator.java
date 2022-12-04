@@ -31,6 +31,7 @@ public class SelectByPrimaryKeyElementGenerator extends AbstractXmlElementGenera
     public void addElements(XmlElement parentElement) {
         XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
 
+        // TODO: 2022/12/5 这里有两种方案，1：通过配置更改方法名称； 2：通过配置的形式，统一替换PrimaryKey 这种模式的名称
         answer.addAttribute(new Attribute(
                 "id", introspectedTable.getSelectByPrimaryKeyStatementId())); //$NON-NLS-1$
         if (introspectedTable.getRules().generateResultMapWithBLOBs()) {

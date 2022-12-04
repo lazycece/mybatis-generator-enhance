@@ -385,13 +385,13 @@ public abstract class IntrospectedTable {
     }
 
     public void initialize() {
-        calculateJavaClientAttributes();
-        calculateModelAttributes();
-        calculateXmlAttributes();
+        calculateJavaClientAttributes(); // TODO: 2022/12/5 java client, is mapper ???
+        calculateModelAttributes(); // TODO: 2022/12/5  model
+        calculateXmlAttributes(); // TODO: 2022/12/5  xml-mapper
 
         if (tableConfiguration.getModelType() == ModelType.HIERARCHICAL) {
             rules = new HierarchicalModelRules(this);
-        } else if (tableConfiguration.getModelType() == ModelType.FLAT) {
+        } else if (tableConfiguration.getModelType() == ModelType.FLAT) {// TODO: 2022/12/5 flat modle type
             rules = new FlatModelRules(this);
         } else {
             rules = new ConditionalModelRules(this);
@@ -417,7 +417,7 @@ public abstract class IntrospectedTable {
         setSelectAllStatementId("selectAll"); //$NON-NLS-1$
         setSelectByExampleStatementId("selectByExample"); //$NON-NLS-1$
         setSelectByExampleWithBLOBsStatementId("selectByExampleWithBLOBs"); //$NON-NLS-1$
-        setSelectByPrimaryKeyStatementId("selectByPrimaryKey"); //$NON-NLS-1$
+        setSelectByPrimaryKeyStatementId("selectByPrimaryKey"); //$NON-NLS-1$ todo custom method name
         setUpdateByExampleStatementId("updateByExample"); //$NON-NLS-1$
         setUpdateByExampleSelectiveStatementId("updateByExampleSelective"); //$NON-NLS-1$
         setUpdateByExampleWithBLOBsStatementId("updateByExampleWithBLOBs"); //$NON-NLS-1$
@@ -751,12 +751,12 @@ public abstract class IntrospectedTable {
     }
 
     protected void calculateModelAttributes() {
-        String pakkage = calculateJavaModelPackage();
+        String pakkage = calculateJavaModelPackage(); // TODO: 2022/12/5  package calculate
 
         StringBuilder sb = new StringBuilder();
         sb.append(pakkage);
         sb.append('.');
-        sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append(fullyQualifiedTable.getDomainObjectName()); // TODO: 2022/12/5 bean name, can custom 后缀
         sb.append("Key"); //$NON-NLS-1$
         setPrimaryKeyType(sb.toString());
 
@@ -839,7 +839,7 @@ public abstract class IntrospectedTable {
                 sb.append(mapperName.substring(ind + 1));
             }
             sb.append(".xml"); //$NON-NLS-1$
-        } else {
+        } else { // TODO: 2022/12/5  mapper-name
             sb.append(fullyQualifiedTable.getDomainObjectName());
             sb.append("Mapper.xml"); //$NON-NLS-1$
         }
